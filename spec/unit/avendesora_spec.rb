@@ -17,5 +17,7 @@ describe Avendesora do
     @app = Avendesora.new out
 
     @app.must_be_instance_of Avendesora
+
+    assert out.verify
   end
 end

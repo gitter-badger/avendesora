@@ -12,10 +12,11 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   Coveralls::SimpleCov::Formatter
 ]
 SimpleCov.start do
-  # Ignore everything in ./.bundle/
+  # Ignore some stuff
   add_filter './bundle/'
+  add_filter './spec/'
 end
-Coveralls.wear!
+#Coveralls.wear!
 
 # Import the minitest libraries
 require 'minitest/autorun'
@@ -29,3 +30,6 @@ MiniTest::Reporters.use! [MiniTest::Reporters::SpecReporter.new]
 
 # The tests can start from here...
 require_relative '../lib/avendesora'
+
+CONFIG_FILE = File.expand_path('../fixtures/ircd.conf',       __FILE__)
+BAD_DAEMON  = File.expand_path('../fixtures/bad-daemon.conf', __FILE__)

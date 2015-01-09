@@ -3,6 +3,8 @@
 # Copyright (c) 2015 Eric Will <rakaur@malkier.net>
 # Rights to this code are documented in LICENSE.
 
+require_relative 'avendesora/configuration'
+
 # This class contains all of the app-wide stuff
 class Avendesora
   # Increments for backwards-incompatible changes
