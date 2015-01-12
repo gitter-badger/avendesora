@@ -46,6 +46,7 @@ describe Configuration do
   # These are really useless, but it makes the code coverage work
   describe "Exceptions" do
     let(:bad_daemon) { Configuration.new BAD_DAEMON }
+    let(:bad_listen) { Configuration.new BAD_LISTEN }
 
     it 'detects malformed daemon blocks' do
       bad_daemon.stub(:abort, nil) do
@@ -53,6 +54,14 @@ describe Configuration do
       end
 
       bad_daemon.must_be_instance_of Configuration
+    end
+
+    it 'detects maleformed listen blocks' do
+      bad_listen.stub(:abort, nil) do
+        bad_listen.stub(:puts, nil) { bad_listen.parse }
+      end
+
+      bad_listen.must_be_instance_of Configuration
     end
   end
 end

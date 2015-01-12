@@ -33,3 +33,4 @@ require_relative '../lib/avendesora'
 
 CONFIG_FILE = File.expand_path('../fixtures/ircd.conf',       __FILE__)
 BAD_DAEMON  = File.expand_path('../fixtures/bad-daemon.conf', __FILE__)
+BAD_LISTEN  = File.expand_path('../fixtures/bad-listen.conf', __FILE__)
