@@ -30,6 +30,19 @@ describe Configuration do
     end
   end
 
+  describe 'listen' do
+    it 'contains ports to listen to' do
+      subject.ports.wont_be_nil
+      subject.ports.must_be_instance_of Array
+    end
+
+    it 'has one port specified' do
+      subject.ports[0].must_be_instance_of OpenStruct
+      subject.ports[0].bind.must_equal '127.0.0.1'
+      subject.ports[0].port.must_equal 6667
+    end
+  end
+
   # These are really useless, but it makes the code coverage work
   describe "Exceptions" do
     let(:bad_daemon) { Configuration.new BAD_DAEMON }

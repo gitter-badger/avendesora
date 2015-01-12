@@ -29,7 +29,7 @@ class Configuration
       puts "\t#{error}"
 
       file = @config_file.split(File::SEPARATOR)[-2 .. -1].join(File::SEPARATOR)
-      line = error.backtrace[2].split(':')[2]
+      line = error.backtrace[1].split(':')[2]
 
       puts "\t\t#{file}:#{line}"
 
@@ -43,7 +43,7 @@ class Configuration
 end
 
 module Configuration::DSL
-  attr_reader :me
+  attr_reader :me, :ports
 
   def daemon(name = "XXX make this required", &block)
     @me = OpenStruct.new
@@ -56,7 +56,34 @@ module Configuration::DSL
       throw :error, err
     end
   end
+
+  def listen(&block)
+    listen = OpenStruct.new
+    listen.extend Configuration::DSL::Listen
+
+    begin
+      listen.instance_eval &block
+    rescue Exception => err
+      throw :error, err
+    end
+
+    (@ports ||= []) << listen
+ end
 end
 
 module Configuration::DSL::Daemon
+end
+
+module Configuration::DSL::Listen
+  private
+
+  def bind(address)
+    # XXX - make sure this is a valid IP address
+    self.bind = address
+  end
+
+  def port(number)
+    # XXX - make sure this is a valid port
+    self.port = number.to_i
+  end
 end
